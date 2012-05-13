@@ -3,21 +3,23 @@ class Pages extends Site_Controller
 {
     function __construct()
     {
-        parent::__construct();       
+        parent::__construct(); 
+        
+        $this->load->model('pages_model');      
 	}
 	
 	function index()
 	{
 		if (($this->uri->segment(2) == 'view'))
 		{
-			$page = $this->social_igniter->get_page_id($this->uri->segment(3));
+			$page = $this->pages_model->get_page_id($this->uri->segment(3));
 			
 			if ($page->details == 'index')	redirect();
 			else							redirect(base_url().'pages/'.$page->title_url, 'refresh');
 		}
 		elseif ($this->uri->segment(1))
 		{
-			$page = $this->social_igniter->get_page($this->uri->segment(2));
+			$page = $this->pages_model->get_page($this->uri->segment(2));
 		
 			if (!$page)	redirect(404);
 
@@ -50,4 +52,15 @@ class Pages extends Site_Controller
 		redirect($page_link.$page_comment);
 	}
 	
+    /* Widgets */
+	function widgets_dropdown_menu($widget_data)
+	{
+	
+	}	
+
+	function widgets_sidebar_menu($widget_data)
+	{
+	
+	}
+
 }

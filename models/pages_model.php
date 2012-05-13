@@ -10,31 +10,6 @@ class Pages_model extends CI_Model {
     }
 
 	/* LOGIC Methods */
-	function get_index_page()
-	{
-		return $this->get_index_page(config_item('site_id'));
-	}
-	
-	function get_page($title_url)
-	{
-		return $this->get_page(config_item('site_id'), $title_url);
-	}	
-
-	function get_page_id($page_id)
-	{
-		return $this->get_page_id($page_id);
-	}
-
-	function get_pages()
-	{
-		return $this->get_pages(config_item('site_id'));
-	}
-	
-	function get_menu()
-	{
-		return $this->get_menu(config_item('site_id'));	
-	}
-	
 	function make_pages_dropdown($content_id)
 	{
 		$pages_query 			= $this->get_content_view('type', 'page', 'all');
@@ -65,20 +40,20 @@ class Pages_model extends CI_Model {
 
 
 	/* DB Methods */
- 	function get_index_page($site_id)
+ 	function get_index_page()
  	{
 		$this->db->select('*');
-		$this->db->where('site_id', $site_id);
+		$this->db->where('site_id', config_item('site_id'));
  		$this->db->where('module', 'pages');		
 		$this->db->where('details', 'index');
 		$this->db->limit(1);
 		return $this->db->get('content')->row();
  	}
 
- 	function get_page($site_id, $title_url)
+ 	function get_page($title_url)
  	{
-		$this->db->select('*');
-		$this->db->where('site_id', $site_id);
+ 		$this->db->select('*');
+		$this->db->where('site_id', config_item('site_id'));
 		$this->db->where('title_url', $title_url);
 		$this->db->limit(1);
 		return $this->db->get('content')->row();
@@ -92,23 +67,22 @@ class Pages_model extends CI_Model {
 		return $this->db->get('content')->row();
  	}  
     
-    function get_pages($site_id)
+    function get_pages()
     {
  		$this->db->select('*');
  		$this->db->from('content');
- 		$this->db->where('site_id', $site_id);
+ 		$this->db->where('site_id', config_item('site_id'));
  		$this->db->where('module', 'pages');
  		$this->db->order_by('order', 'asc'); 
  		$result = $this->db->get();	
  		return $result->result();
     }
 
-
-    function get_menu($site_id)
+    function get_menu()
     {    
  		$this->db->select('parent_id, type, order, title, title_url, details');
  		$this->db->from('content');
- 		$this->db->where('site_id', $site_id);
+ 		$this->db->where('site_id', config_item('site_id'));
  		$this->db->where('status', 'P');
  		$this->db->where('module', 'pages');
  		$this->db->where('details !=', 'index');
