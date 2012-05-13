@@ -6,7 +6,6 @@ class Pages extends Site_Controller
         parent::__construct();       
 	}
 	
-
 	function index()
 	{
 		if (($this->uri->segment(2) == 'view'))
@@ -22,11 +21,12 @@ class Pages extends Site_Controller
 		
 			if (!$page)	redirect(404);
 
-			$this->data['content_id']			= $page->content_id;
-			$this->data['page_content']			= $page->content;
-			$this->data['comments_allow']		= $page->comments_allow;
+			$this->data['content_id']		= $page->content_id;
+			$this->data['page_title'] 		= $page->title;
+			$this->data['page_content']		= $page->content;
+			$this->data['comments_allow']	= $page->comments_allow;
 		}				
-		
+				
 		// Comments
 		if ((config_item('comments_enabled') == 'TRUE') && ($page->comments_allow != 'N'))
 		{
@@ -36,11 +36,18 @@ class Pages extends Site_Controller
 		$this->render();	
 	}
 
+	function view()
+	{
+		$page 			= $this->social_igniter->get_content($this->uri->segment(3));
+		$page_link		= base_url().'pages/'.$page->title_url;
+		$page_comment	= NULL;
 
-	function view() 
-	{		
-		// Basic Content Redirect	
-		$this->render();
+		if ($this->uri->segment(4))
+		{
+			$page_comment = '#comment-'.$this->uri->segment(4);
+		}
+		
+		redirect($page_link.$page_comment);
 	}
 	
 }
