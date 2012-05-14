@@ -55,12 +55,16 @@ class Pages extends Site_Controller
     /* Widgets */
 	function widgets_dropdown_menu($widget_data)
 	{
-	
+		$widget_data['pages'] = $this->pages_model->get_menu();
+
+		$this->load->view('widgets/dropdown_menu', $widget_data);			
 	}	
 
-	function widgets_sidebar_menu($widget_data)
+	function widgets_verticle_menu($widget_data)
 	{
-	
+		$widget_data['pages'] = $this->pages_model->get_pages();
+
+		$this->load->view('widgets/verticle_menu', $widget_data);
 	}
 
 }

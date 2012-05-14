@@ -1,4 +1,5 @@
-<div class="widget_<?= $widget_region ?> widget_pages_dropdown_menu" id="widget_<?= $widget_id ?>">
+<div class="widget_<?= $widget_region ?> widget_pages_verticle_menu" id="widget_<?= $widget_id ?>">
+	<h2><?= $widget_title ?></h2>
 	<ul>	
 	<?php foreach ($pages as $nav): if (($nav->type == 'page') && ($nav->details == 'site')): ?>
 		<li><a class="nav" href="<?= base_url().'pages/'.$nav->title_url ?>"><?= $nav->title ?></a></li>
