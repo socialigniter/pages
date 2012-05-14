@@ -1,9 +1,9 @@
 <?php
 
-class Pages_model extends CI_Model {
-
+class Pages_model extends CI_Model
+{
 	protected $pages_view;
-    
+
     function __construct()
     {
         parent::__construct();
@@ -12,7 +12,7 @@ class Pages_model extends CI_Model {
 	/* LOGIC Methods */
 	function make_pages_dropdown($content_id)
 	{
-		$pages_query 			= $this->get_content_view('type', 'page', 'all');
+		$pages_query 			= $this->get_pages();
 		$this->pages_view 		= array(0 => '----select----');
 		$pages 					= $this->render_pages_children($pages_query, 0, $content_id);
 				
@@ -50,7 +50,7 @@ class Pages_model extends CI_Model {
 		return $this->db->get('content')->row();
  	}
 
- 	function get_page($title_url)
+ 	function get_page_title($title_url)
  	{
  		$this->db->select('*');
 		$this->db->where('site_id', config_item('site_id'));
@@ -59,7 +59,7 @@ class Pages_model extends CI_Model {
 		return $this->db->get('content')->row();
  	}    
 
- 	function get_page_id($content_id)
+ 	function get_page($content_id)
  	{
 		$this->db->select('*');
 		$this->db->where('content_id', $content_id);

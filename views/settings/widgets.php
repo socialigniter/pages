@@ -1,1 +1,1 @@
-<h3>App Template Widgets</h3>
+<p>Pages Widget Configurations Will Go Here</p>

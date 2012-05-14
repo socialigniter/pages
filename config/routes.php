@@ -9,6 +9,8 @@
 *
 * Standard installed routes for Pages
 */
-$route['pages/(:any)']						= 'pages/index';
-$route['pages/home/manage/(:num)']			= 'home/pages_editor';
-$route['pages/home/create']					= 'home/pages_editor';
+$route['pages/settings'] 				= 'settings/index';
+$route['pages/settings/widgets'] 		= 'settings/widgets';
+$route['pages/home/create'] 			= 'home/editor';
+$route['pages/home/manage/(:num)'] 		= 'home/editor';
+$route['pages/(:any)']					= 'pages/index';

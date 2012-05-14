@@ -12,14 +12,14 @@ class Pages extends Site_Controller
 	{
 		if (($this->uri->segment(2) == 'view'))
 		{
-			$page = $this->pages_model->get_page_id($this->uri->segment(3));
+			$page = $this->pages_model->get_page($this->uri->segment(3));
 			
 			if ($page->details == 'index')	redirect();
 			else							redirect(base_url().'pages/'.$page->title_url, 'refresh');
 		}
 		elseif ($this->uri->segment(1))
 		{
-			$page = $this->pages_model->get_page($this->uri->segment(2));
+			$page = $this->pages_model->get_page_title($this->uri->segment(2));
 		
 			if (!$page)	redirect(404);
 

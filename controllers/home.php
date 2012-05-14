@@ -5,23 +5,20 @@ class Home extends Dashboard_Controller
     {
         parent::__construct();
 
-		$this->load->config('config');
+		$this->load->config('pages');
+		$this->load->model('pages_model');
 
 		$this->data['page_title'] = 'Pages';
+		$this->data['pages_path'] = config_item('pages_path');
 	}
 	
-	function custom()
-	{
-		$this->data['sub_title'] = 'Custom';
-	
-		$this->render();
+	function index()
+	{		
+		redirect('home', 'refresh');
 	}
-	
-	
 
-	/* Pages */
-	function pages_editor()
-	{				
+	function editor()
+	{			
 		if (($this->uri->segment(3) == 'manage') && ($this->uri->segment(4)))
 		{
 			// Need is valid & access and such
@@ -47,6 +44,7 @@ class Home extends Dashboard_Controller
 			}
 			
 			$this->data['wysiwyg_value']	= $page->content;
+			$this->data['category_id']		= $page->category_id;			
 			$this->data['parent_id']		= $page->parent_id;
 			$this->data['details'] 			= $page->details;
 			$this->data['access']			= $page->access;
@@ -68,6 +66,7 @@ class Home extends Dashboard_Controller
 			$this->data['slug_pre']			= base_url().'pages';
 			$this->data['layouts']			= '';
 			$this->data['wysiwyg_value']	= $this->input->post('content');
+			$this->data['category_id']		= '';
 			$this->data['parent_id']		= '';
 			$this->data['details'] 			= 'site';			
 			$this->data['access']			= 'E';
@@ -80,6 +79,7 @@ class Home extends Dashboard_Controller
 		// WYSIWYG for 'pages'
 		if ($this->data['details'] == 'site')
 		{
+			$this->data['wysiwyg_js']		= TRUE;	
 			$this->data['wysiwyg_name']		= 'content';
 			$this->data['wysiwyg_id']		= 'wysiwyg_content';
 			$this->data['wysiwyg_class']	= 'wysiwyg_norm_full';
@@ -93,17 +93,17 @@ class Home extends Dashboard_Controller
 		// Not currently working
 		// Don't know where to store layout value
 		$this->data['layouts']				= $this->social_igniter->scan_layouts(config_item('site_theme'));
-		$this->data['layout_selected']		= 'sidebar';	
-		
+		$this->data['layout_selected']		= 'sidebar';
+
 		$this->data['form_module']			= 'pages';
-		$this->data['form_type']			= 'page';		
-		$this->data['form_name']			= 'pages_editor';		
-		$this->data['parent_pages'] 		= $this->social_igniter->make_pages_dropdown($this_page_id);
+		$this->data['form_type']			= 'page';
+		$this->data['form_name']			= 'pages_editor';
+		$this->data['categories'] 			= $this->social_tools->make_categories_dropdown(array('categories.module' => 'pages'), $this->session->userdata('user_id'), $this->session->userdata('user_level_id'), '+ Add Pages Category');			
+		$this->data['parent_pages'] 		= $this->pages_model->make_pages_dropdown($this_page_id);
 	 	$this->data['content_publisher'] 	= $this->social_igniter->make_content_publisher($this->data, 'form');
 
  		$this->render('dashboard_wide');
 	}
-	
 	
 	
 }

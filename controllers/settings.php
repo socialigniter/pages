@@ -9,7 +9,7 @@ class Settings extends Dashboard_Controller
         
         $this->load->config('pages');
         
-		$this->data['page_title']	= 'Settings';
+		$this->data['page_title']	= 'Blog';
     }
  
  	function index()
@@ -20,15 +20,14 @@ class Settings extends Dashboard_Controller
 			redirect('settings/apps');
 		}
 
-		$this->data['sub_title'] 	= 'Pages';
-		$this->data['this_module']	= 'pages';
+		$this->data['sub_title'] 	= 'Settings';
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
     	$this->render('dashboard_wide');
 	}
 	
 	function widgets()
 	{
-		$this->data['sub_title'] = 'Widgets';		
+		$this->data['sub_title'] 	= 'Widgets';		
 		$this->render('dashboard_wide');
 	}		
 
