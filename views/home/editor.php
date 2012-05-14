@@ -64,7 +64,7 @@ $(document).ready(function()
 	makePlaceholders(validation_rules);
 
 	// Slugify
-	$('#title').slugify({url:'<?= $slug_pre ?>', slug:'#title_slug', name:'title_url', slugValue:'<?= $title_url ?>'});
+	$('#title').slugify({url: base_url + 'pages/', slug:'#title_slug', name:'title_url', slugValue:'<?= $title_url ?>'});
 
 	// Autocomplete Tags
 	autocomplete("[name=tags]", 'api/tags/all');

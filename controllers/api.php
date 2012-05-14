@@ -8,14 +8,17 @@ class Api extends Oauth_Controller
 	}
 
     /* Install App */
-	function install_get()
+	function install_authd_get()
 	{
 		// Load
-		$this->load->library('installer');
 		$this->load->config('install');        
+		$this->load->library('installer');
 
-		// Settings & Create Folders
+		// Settings
 		$settings = $this->installer->install_settings('pages', config_item('pages_settings'));
+		
+		// Content
+		$content = $this->installer->install_content(config_item('pages_content'), $this->oauth_user_id);		
 	
 		if ($settings == TRUE)
 		{
@@ -27,6 +30,6 @@ class Api extends Oauth_Controller
         }		
 		
 		$this->response($message, 200);
-	} 
+	}
 
 }
