@@ -3,6 +3,7 @@
 	<div id="content_wide_content">
 		<h3>Title</h3>
 		<input type="text" name="title" id="title" class="input_full" placeholder="Super Cute Cat Photos" value="<?= $title ?>">
+		<span id="title_error"></span>
 		<p id="title_slug" class="slug_url"></p>
 	
 		<?php if ($details == 'site'): ?>
@@ -53,11 +54,6 @@ var validation_rules = [{
 	'rule'		: 'require',
 	'holder'	: 'Super Cute Cats', 
 	'action'	: 'label'
-},{
-	'selector' 	: '#tags', 
-	'rule'		: 'require',
-	'holder'	: 'Cats, Cuteness, OMG', 
-	'action'	: 'label'
 }]
 
 $(document).ready(function()
@@ -70,9 +66,9 @@ $(document).ready(function()
 	
 	
 	/* Pick Layout */
-	$('.layout_picker').live('click', function(eve)
+	$('.layout_picker').live('click', function(e)
 	{
-		eve.preventDefault();
+		e.preventDefault();
 		var value		= $(this).attr('id');
 		var layout 		= value.replace('layout_','');
 		$('#layout').val(layout);
