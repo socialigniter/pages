@@ -27,13 +27,7 @@ class Pages extends Site_Controller
 			$this->data['page_title'] 		= $page->title;
 			$this->data['page_content']		= $page->content;
 			$this->data['comments_allow']	= $page->comments_allow;
-		}				
-				
-		// Comments
-		if ((config_item('comments_enabled') == 'TRUE') && ($page->comments_allow != 'N'))
-		{
-			$this->data['comments_view'] = $this->social_tools->make_comments_section($page->content_id, 'page', $this->data['logged_user_id'], $this->data['logged_user_level_id']);
-		}		
+		}
 
 		$this->render();	
 	}
