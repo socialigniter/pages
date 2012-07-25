@@ -1,8 +1,8 @@
-<form name="<?= $form_name ?>" id="<?= $form_name ?>" action="<?= $form_url ?>" method="post" enctype="multipart/form-data">
+<form name="content_editor_form" id="content_editor_form" action="<?= $form_url ?>" method="post" enctype="multipart/form-data">
 
 	<div id="content_wide_content">
 		<h3>Title</h3>
-		<input type="text" name="title" id="title" class="input_full" value="<?= $title ?>">
+		<input type="text" name="title" id="title" class="input_full" placeholder="Super Cute Cat Photos" value="<?= $title ?>">
 		<p id="title_slug" class="slug_url"></p>
 	
 		<?php if ($details == 'site'): ?>
@@ -24,7 +24,7 @@
 		</p>
 
 	    <h3>Tags</h3>
-	    <p><input name="tags" type="text" id="tags" size="75" /></p>
+	    <p><input name="tags" type="text" id="tags" placeholder="Cats, Cuteness, OMG, Lulz" size="75" /></p>
 
 		<h3>Access</h3>
 		<p><?= form_dropdown('access', config_item('access'), $access) ?></p>
@@ -49,20 +49,19 @@
 
 // Elements for Placeholder
 var validation_rules = [{
-	'element' 	: '#title', 
+	'selector' 	: '#title', 
+	'rule'		: 'require',
 	'holder'	: 'Super Cute Cats', 
-	'message'	: 'You need a place title'
+	'action'	: 'label'
 },{
-	'element' 	: '#tags', 
+	'selector' 	: '#tags', 
+	'rule'		: 'require',
 	'holder'	: 'Cats, Cuteness, OMG', 
-	'message'	: ''	
+	'action'	: 'label'
 }]
 
 $(document).ready(function()
 {
-	// Placeholders
-	makePlaceholders(validation_rules);
-
 	// Slugify
 	$('#title').slugify({url: base_url + 'pages/', slug:'#title_slug', name:'title_url', slugValue:'<?= $title_url ?>'});
 
@@ -90,6 +89,9 @@ $(document).ready(function()
 		type		: 'category',
 		title		: 'Add Category'
 	});
+
+	// Specify API URL
+	$.data(document.body, 'api_url', $('#content_editor_form').attr('action'));
 	
 });
 </script>
