@@ -86,7 +86,7 @@ class Home extends Dashboard_Controller
 			$this->data['wysiwyg_width']	= 640;
 			$this->data['wysiwyg_height']	= 300;
 			$this->data['wysiwyg_resize']	= TRUE;
-			$this->data['wysiwyg_media']	= TRUE;			
+			$this->data['wysiwyg_media']	= FALSE;			
 			$this->data['wysiwyg']	 		= $this->load->view($this->config->item('dashboard_theme').'/partials/wysiwyg', $this->data, true);
 		}
 		
@@ -97,7 +97,6 @@ class Home extends Dashboard_Controller
 
 		$this->data['form_module']			= 'pages';
 		$this->data['form_type']			= 'page';
-		$this->data['form_name']			= 'pages_editor';
 		$this->data['categories'] 			= $this->social_tools->make_categories_dropdown(array('categories.module' => 'pages'), $this->session->userdata('user_id'), $this->session->userdata('user_level_id'), '+ Add Pages Category');			
 		$this->data['parent_pages'] 		= $this->pages_model->make_pages_dropdown($this_page_id);
 	 	$this->data['content_publisher'] 	= $this->social_igniter->make_content_publisher($this->data, 'form');
