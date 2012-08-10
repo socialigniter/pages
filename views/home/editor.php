@@ -5,9 +5,10 @@
 		<input type="text" name="title" id="title" class="input_full" placeholder="Super Cute Cat Photos" value="<?= $title ?>">
 		<span id="title_error"></span>
 		<p id="title_slug" class="slug_url"></p>
-	
+
 		<?php if ($details == 'site'): ?>
 		<h3>Content</h3>
+		<span id="wysiwyg_content_error"></span>		
 		<?= $wysiwyg ?>
 
 	    <h3>Category</h3>
@@ -52,7 +53,12 @@
 var validation_rules = [{
 	'selector' 	: '#title', 
 	'rule'		: 'require',
-	'holder'	: 'Super Cute Cats', 
+	'field'		: 'You need a title for your page', 
+	'action'	: 'label'
+},{
+	'selector' 	: '#wysiwyg_content',
+	'rule'		: 'require', 
+	'field'		: 'You need some content on this page', 
 	'action'	: 'label'
 }]
 
